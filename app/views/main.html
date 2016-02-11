@@ -1,0 +1,131 @@
+<div class="row marketing">
+  <form>
+	<div class="form-group">
+	  <label>Search</label>
+	  <input class="form-control" data-ng-model="search" placeholder="Search">
+	</div>
+  </form>
+  <div>
+	<div class="btn btn-primary" ng-click="cCreate()">Create</div>
+  </div>
+  <table class="table table-responsive table-bordered">
+	  <thead>
+		  <tr ng-init="reverse = false;">
+			<th ng-click="sortKey = 'sno'; reverse=!reverse">S.No 
+			  <span class="{{sortKey == 'sno' && 'glyphicon glyphicon-chevron-up' || ''}}"></span>
+			</th>
+			<th ng-click="sortKey = 'name';reverse=!reverse">Name
+			  <span ng-class="sortKey == 'name' && 'glyphicon glyphicon-chevron-up' || ''"></span>
+			</th>
+			<th ng-click="sortKey = 'deg';reverse=!reverse">Deg 
+			  <span class="{{sortKey == 'deg' && 'glyphicon glyphicon-chevron-up' || ''}}"></span>
+			</th>
+			<th ng-click="sortKey = 'exp';reverse=!reverse">Exp
+			  <span class="{{ sortKey == 'exp' && 'glyphicon glyphicon-chevron-up' || ''}}"></span>
+			</th>
+			<th>view</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		  </tr> 
+	  </thead>
+	  <tbody>
+		<tr data-ng-repeat="employee in employeeData | orderBy : sortKey : reverse  | filter : search">
+		  <td class="text-center"><span ng-bind="$index+1"></span></td>
+		  <td class="text-center"><span ng-bind="employee.name"></span></td>
+		  <td class="text-center"><span ng-bind="employee.deg"></span></td>
+		  <td class="text-center"><span ng-bind="employee.exp"></span></td>
+		  <td class="text-center">
+			<span class="glyphicon glyphicon-eye-open" id="myModal" ng-click="view(employee)"></span>
+		  </td>
+		  <td class="text-center">
+			<span class="glyphicon glyphicon-pencil" ng-click="edit()"></span>
+		  </td>
+		  <td class="text-center">
+			<span class="glyphicon glyphicon-trash" ng-click="cDelete($index)"></span>
+		  </td>
+		</tr>
+	  </tbody>
+  </table>
+</div>
+<h2>Table 2</h2>
+{{myDataObj}}
+<table class="table table-responsive table-bordered">
+	  <thead>
+		  <tr>
+			<th>S.No 
+			</th>
+			<th>Name
+			</th>
+			<th>Exp 
+			</th>
+			<th>Deg 
+			</th>
+		  </tr> 
+	  </thead>
+	  <tbody>
+		<tr data-ng-repeat="(key, value) in myDataObj">
+		  <td class="text-center"><span ng-bind="key"></span></td>
+		  <td class="text-center"><span ng-bind="value.name"></span></td>
+		  <td class="text-center"><span ng-bind="value.exp"></span></td>
+		  <td class="text-center"><span ng-bind="value.deg"></span></td>
+		</tr>
+	  </tbody>
+  </table>
+
+<h4>
+{{ amount | currency :"usd$" : 7}}
+</h4>
+<p>Output letters: {{ limitData | limitTo:100 }} <span ng-hide="!(limitData.length>99)">...</span></p>
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">Modal title</h4>
+	  </div>
+	  <div class="modal-body">
+		<div>{{viewObj.name}}</div>
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary">Save changes</button>
+	  </div>
+	</div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">Modal title</h4>
+	  </div>
+	  <div class="modal-body">
+		  <form>
+			<div class="form-group">
+			  <label>S.No: </label>
+			  <input type="text" ng-model="sno" class="form-control">
+			</div>
+			<div class="form-group">
+			  <label>Emp Name: </label>
+			  <input type="text" ng-model="name" class="form-control">
+			</div>
+			<div class="form-group">
+			  <label>Deg: </label>
+			  <input type="text" ng-model="deg" class="form-control">
+			</div> 
+			<div class="form-group">
+			  <label>Exp: </label>
+			  <input type="text" ng-model="exp" class="form-control">
+			</div>  
+		  </form>
+		<!-- <div>{{viewObj.name}}</div> -->
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary" ng-click="createRecord()">Save changes</button>
+	  </div>
+	</div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
